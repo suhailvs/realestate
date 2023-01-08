@@ -3,4 +3,7 @@
 To generate data goto : <https://www.google.com/maps/about/mymaps/> and draw polygons. 
 Then `Export data` -> `CSV`
 
-![demo](https://github.com/suhailvs/realestate/raw/main/exportdata.jpeg)
+![screeshot1][logo1]
+
+
+[logo1]: https://raw.github.com/suhailvs/realestate/main/exportdata.jpeg
