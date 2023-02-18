@@ -3,9 +3,10 @@
 <div id="map" style="width:100%; height: 100%"></div>
 <script>
 	const map = L.map('map').setView([10.59, 76.45], 13);
-	const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-		maxNativeZoom:19, // https://stackoverflow.com/a/45100162/2351696
-        maxZoom:25,
+    // https://leaflet-extras.github.io/leaflet-providers/preview/
+	const tiles = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { //https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		maxNativeZoom:18, // https://gis.stackexchange.com/a/78851
+        maxZoom:20,
 		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 	}).addTo(map);
 
