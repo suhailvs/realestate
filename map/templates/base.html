@@ -10,8 +10,12 @@
 
     <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"/>
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script> -->
-    <link rel="stylesheet" href="{% static 'leaflet/leaflet.css' %}"/>
-    <script src="{% static 'leaflet/leaflet.js' %}"></script>
+	{% block css %} 
+    {% endblock %}
+
+	{% block extra_css %} 
+    {% endblock %}
+    
 	<style>
 		html, body {
 			height: 100%;
@@ -21,6 +25,12 @@
 </head>
 <body>
     {% block body %} 
+    {% endblock %}
+
+	{% block js %} 
+    {% endblock %}
+
+	{% block extra_js %} 
     {% endblock %}
 </body>
 </html>
