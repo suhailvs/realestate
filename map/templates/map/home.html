@@ -1,23 +1,81 @@
-{% extends 'base.html' %} 
-{% block body %} 
+{% extends 'map/base.html' %}
+{% block body %}
 <div id="map" style="width:100%; height: 100%"></div>
+<!--
 <script>
-	const map = L.map('map').setView([10.59, 76.45], 13);
+    const map = L.map('map').setView([10.59, 76.45], 13);
     // https://leaflet-extras.github.io/leaflet-providers/preview/
-	const tiles = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { //https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-		maxNativeZoom:18, // https://gis.stackexchange.com/a/78851
-        maxZoom:20,
-		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-	}).addTo(map);
+    const tiles = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { //https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxNativeZoom: 18, // https://gis.stackexchange.com/a/78851
+        maxZoom: 20,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
 
     // create a red polygon from an array of LatLng points
-    let latlngs = {{ f_latlogs|safe }};
+    let latlngs = {{ f_latlogs| safe }};
     let polygon;
     for (let i = 0; i < latlngs.length; i++) {
-        polygon = L.polygon(latlngs[i], { color: 'red', id : i}).addTo(map);
+        polygon = L.polygon(latlngs[i], { color: 'red', id: i }).addTo(map);
         polygon.on('click', function () {
             alert(this.options.id);
         });
     }
-</script> 
+</script>
+-->
+{% endblock %}
+
+{% block extra_js %}
+<!-- https://leaflet.github.io/Leaflet.draw/docs/leaflet-draw-latest.html#l-edit-poly -->
+<script>
+    const osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        osm = L.tileLayer(osmUrl, { maxNativeZoom: 18, maxZoom: 20, attribution: osmAttrib }),
+        map = new L.Map('map', { center: new L.LatLng(10.59, 76.45), zoom: 13 }),
+        drawnItems = L.featureGroup().addTo(map);
+    L.control.layers({
+        'osm': osm.addTo(map),
+        "google": L.tileLayer('http://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}', {
+            maxNativeZoom: 18, // https://gis.stackexchange.com/a/78851
+            maxZoom: 20,
+            attribution: 'google'
+        }),
+        "arcgis": L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { //https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxNativeZoom: 18, // https://gis.stackexchange.com/a/78851
+            maxZoom: 20,
+            attribution: 'arcgis'
+        }),
+    }, { 'drawlayer': drawnItems }, { position: 'topleft', collapsed: false }).addTo(map);
+    map.addControl(new L.Control.Draw({
+        draw: {
+            polygon: {
+                allowIntersection: false,
+                showArea: true
+            },
+            marker: false, // remove marker
+            circlemarker: false, // remove
+            circle: false, // remove
+            rectangle: false, // remove
+            polyline: false, // remove
+        }
+    }));
+
+    map.on(L.Draw.Event.CREATED, function (event) {
+        var layer = event.layer;
+        drawnItems.addLayer(layer);
+        // get co ordinates of drawn polygon
+        console.log(layer.getLatLngs())
+    });
+
+
+
+    // create a red polygon from an array of LatLng points
+    let latlngs = {{ f_latlogs| safe }};
+    let polygon;
+    for (let i = 0; i < latlngs.length; i++) {
+        polygon = L.polygon(latlngs[i], { color: 'red', id: i }).addTo(map);
+        polygon.on('click', function () {
+            alert(this.options.id);
+        });
+    }
+</script>
 {% endblock %}
