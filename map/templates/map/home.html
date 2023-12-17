@@ -43,7 +43,7 @@
         let layer = event.layer;
         drawnItems.addLayer(layer);
         // get co ordinates of drawn polygon
-        console.log(layer.getLatLngs())
+        // console.log(layer.getLatLngs())
         $("#txt_latlngs").val(layer.getLatLngs())
         $("#addPolygonModal").modal("show");
     });
@@ -54,9 +54,9 @@
     let latlngs = {{ f_latlogs| safe }};
     let polygon;
     for (let i = 0; i < latlngs.length; i++) {
-        polygon = L.polygon(latlngs[i], { color: 'red', id: i }).addTo(map);
+        polygon = L.polygon(latlngs[i]["latlngs"], { color: 'red', id: latlngs[i]['id'] }).addTo(map);
         polygon.on('click', function () {
-            alert(this.options.id);
+            window.open(`property/${this.options.id}/`, '_blank').focus();
         });
     }
 

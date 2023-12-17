@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">{{ property.name }}</h5>
+      <p class="card-text">{{ property.address }}</p>
+      <form method="POST" action="{% url 'property:property_detail' property.id %}">{% csrf_token %}
+        <button type="submit"  class="btn btn-primary">Delete</button>
+        </form>
+    </div>
+  </div>
+
+{% endblock %}

@@ -21,4 +21,5 @@ urlpatterns = [
 
     path("", views.home),
     path("map/", include("map.urls")),
+    path("property/", include("property.urls")),
 ]
