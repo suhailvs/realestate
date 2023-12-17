@@ -1,38 +1,42 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<base target="_top">
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	
+
 	<title>Real Estate</title>
 
-	<link rel="stylesheet" href="{% static 'bootstrap/bootstrap.min.css' %}"/>
-	{% block css %} 
-    {% endblock %}
+	<link rel="stylesheet" href="{% static 'bootstrap/bootstrap.min.css' %}" />
+	{% block css %}
+	{% endblock %}
 
-	{% block extra_css %} 
-    {% endblock %}
-    
+	{% block extra_css %}
+	{% endblock %}
+
 	<style>
-		html, body {
+		html,
+		body {
 			height: 100%;
 			margin: 0;
 		}
 	</style>
 </head>
+
 <body>
-    {% block body %} 
-    {% endblock %}
+	{% block body %}
+	{% endblock %}
 
 
 	<script src="{% static 'jquery-3.7.1.js' %}"></script>
 	<script src="{% static 'bootstrap/bootstrap.bundle.min.js' %}"></script>
-	{% block js %} 
-    {% endblock %}
-	
-	{% block extra_js %} 
-    {% endblock %}
+	{% block js %}
+	{% endblock %}
+
+	{% block extra_js %}
+	{% endblock %}
 </body>
+
 </html>
