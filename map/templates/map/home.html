@@ -44,9 +44,8 @@
         drawnItems.addLayer(layer);
         // get co ordinates of drawn polygon
         console.log(layer.getLatLngs())
+        $("#txt_latlngs").val(layer.getLatLngs())
         $("#addPolygonModal").modal("show");
-        // let myModal = new bootstrap.Modal(document.getElementById("addPolygonModal"), {});
-        // myModal.show();
     });
 
 
@@ -61,23 +60,39 @@
         });
     }
 
+    function latlngs_to_array(latlngs) {
+        // https://stackoverflow.com/a/51379191/2351696
+        // INPUT: "LatLng(17.50438, 1.04772),LatLng(17.48686, 1.05775)"            
+        // OUTPUT: [['17.50438','1.04772'], ['17.48686','1.05775']]
+        let splittedArray = latlngs.split("LatLng"),
+            outputArray = [];
+
+        splittedArray.forEach(o => {
+            if (o) {
+                let extractedLTLNG = o.match(/\(([^)]+)\)/)[1].split(",");
+                let tempArray = [extractedLTLNG[0], extractedLTLNG[1]];
+                outputArray.push(tempArray);
+            } else {
+                return;
+            }
+        })
+        return outputArray;
+    }
 
     $("#btn_save_property").click(function () {
         let data = {
             name: $("#txt_name").val(),
             address: $("#txt_address").val(),
+            latlngs: JSON.stringify(latlngs_to_array($("#txt_latlngs").val())),
             csrfmiddlewaretoken: '{{csrf_token}}',
         }
         $.post("{% url 'map:save_property' %}", data)
-        .done( function(resp) { 
-            $("#addPolygonModal").modal("hide");
-        })
-        .fail( function(xhr, textStatus, errorThrown) {
-            $("#addPolygonModal").modal("hide");
-        });
-
+            .done(function (resp) {
+                location.reload();
+            })
+            .fail(function (xhr, textStatus, errorThrown) {
+                $("#addPolygonModal").modal("hide");
+            });
     });
-
-    
 </script>
 {% endblock %}
