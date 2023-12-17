@@ -1,5 +1,8 @@
 from django.shortcuts import render
 import csv
+from .models import Property
+from django.http import JsonResponse
+
 # Create your views here.
 
 class ReadCSV:
@@ -36,3 +39,9 @@ def home(request):
     r_csv = ReadCSV()
     f_latlogs = r_csv.get()
     return render(request, 'map/home.html',{'f_latlogs':f_latlogs})
+
+def save_property(request):
+    if request.method == 'POST':
+        print(request.POST)
+        Property.objects.create(name = request.POST['name'], address = request.POST['address'])
+        return JsonResponse({'success':True})
