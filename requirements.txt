@@ -1,4 +1,8 @@
 asgiref==3.6.0
 backports.zoneinfo==0.2.1
-Django==4.1.5
 sqlparse==0.4.3
+
+django-filter~=23.2
+djangorestframework-gis~=1.0.0
+djangorestframework~=3.14.0
+django~=4.2.0
