@@ -7,3 +7,6 @@ Then `Export data` -> `CSV`
 
 
 [logo1]: https://raw.github.com/suhailvs/realestate/main/exportdata.jpeg
+
+
+<https://www.paulox.net/2021/07/19/maps-with-django-part-2-geodjango-postgis-and-leaflet/>
