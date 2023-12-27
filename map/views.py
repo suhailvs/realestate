@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 import csv, json
-from .models import Property
+from .models import Property, PropertyGIS
 from django.http import JsonResponse
 from django.views import View
-
+import json
+from django.core.serializers import serialize
 # Create your views here.
 def home(request):
     """
@@ -16,7 +17,7 @@ def home(request):
     return render(
         request,
         "map/home.html",
-        {"f_latlogs": latlngs},
+        {"f_latlogs": latlngs, 'propertygis':json.loads(serialize("geojson",PropertyGIS.objects.all()))},
     )
 
 
@@ -39,3 +40,4 @@ class PropertyDetail(View):
     def post(self, request, property):
         Property.objects.get(id= property).delete()
         return redirect('/')
+
