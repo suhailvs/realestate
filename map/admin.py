@@ -1,3 +1,8 @@
-from django.contrib import admin
+from django.contrib.gis import admin
 
-# Register your models here.
+from .models import PropertyGIS
+
+
+@admin.register(PropertyGIS)
+class PropertyGISAdmin(admin.GISModelAdmin):
+    list_display = ("name", "GEOMETRY")

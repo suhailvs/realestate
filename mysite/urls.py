@@ -21,7 +21,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.home),
     path("map/", include("map.urls")),
-    path("property/", include("property.urls")),
     path(
         "markers/",
         include("markers.urls"),

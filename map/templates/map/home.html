@@ -1,6 +1,7 @@
 {% extends 'map/base.html' %}
 {% block body %}
 {% include 'map/add_polygon_modal.html' %}
+{{ propertygis|json_script:"markers-data" }}
 <div id="map" style="width:100%; height: 100%"></div>
 {% endblock %}
 
@@ -25,6 +26,25 @@
             attribution: 'arcgis'
         }),
     }, { 'drawlayer': drawnItems }, { position: 'topleft', collapsed: false }).addTo(map);
+
+    // https://gis.stackexchange.com/a/447345
+    const markers = JSON.parse(document.getElementById("markers-data").textContent);
+    let feature = L.geoJSON(markers).bindPopup(function (layer) {
+        const div = document.createElement("div");
+        div.innerHTML = `<br>${layer.feature.properties.name}<br>`;
+
+        const button = document.createElement("button");
+        button.innerHTML = "Create Line";
+
+        button.onclick = function() {
+            alert(layer.feature.properties.pk)
+        }
+
+        div.appendChild(button);
+        return div;
+    }).addTo(map);
+    // map.fitBounds(feature.getBounds(), {padding: [100, 100],});
+
     map.addControl(new L.Control.Draw({
         draw: {
             polygon: {
