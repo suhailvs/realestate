@@ -5,7 +5,7 @@
     <div class="card-body">
       <h5 class="card-title">{{ property.name }}</h5>
       <p class="card-text">{{ property.address }}</p>
-      <form method="POST" action="{% url 'property:property_detail' property.id %}">{% csrf_token %}
+      <form method="POST" action="{% url 'map:property_detail' property.id %}">{% csrf_token %}
         <button type="submit"  class="btn btn-primary">Delete</button>
         </form>
     </div>

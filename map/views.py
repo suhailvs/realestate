@@ -1,8 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import csv, json
 from .models import Property
 from django.http import JsonResponse
-
+from django.views import View
 
 # Create your views here.
 def home(request):
@@ -28,3 +28,14 @@ def save_property(request):
             latlngs=json.loads(request.POST["latlngs"]),  # getlist("latlngs[]"),
         )
         return JsonResponse({"success": True})
+
+
+class PropertyDetail(View):
+    """Show Details of a Property"""
+    def get(self, request, property):
+        property = Property.objects.get(id= property)
+        return render(request,'map/property_detail.html',{"property":property})
+
+    def post(self, request, property):
+        Property.objects.get(id= property).delete()
+        return redirect('/')
