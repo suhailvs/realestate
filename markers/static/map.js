@@ -15,8 +15,10 @@ async function load_markers() {
 }
 
 async function render_markers() {
-  const markers = await load_markers();
-  L.geoJSON(markers).bindPopup((layer) => layer.feature.properties.name).addTo(map);
+  if (map.getZoom() > 14) {
+    const markers = await load_markers();
+    L.geoJSON(markers).bindPopup((layer) => layer.feature.properties.name).addTo(map);
+  }
 }
 
 map.on("moveend", render_markers);

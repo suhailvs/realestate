@@ -10,3 +10,16 @@ Then `Export data` -> `CSV`
 
 
 <https://www.paulox.net/2021/07/19/maps-with-django-part-2-geodjango-postgis-and-leaflet/>
+https://www.paulox.net/2020/12/08/maps-with-django-part-1-geodjango-spatialite-and-leaflet/
+
+# Download
+
+## download osm.pdf files
+
+    https://app.protomaps.com/
+
+## convert pbf file to sqlite db
+
+https://github.com/AmericanRedCross/workflows/blob/master/converting_pbf_into_spatialite.md
+
+    ogr2ogr -f "SQLite" -dsco SPATIALITE=YES name_of_new_file.db name_of_extracted_file.pbf

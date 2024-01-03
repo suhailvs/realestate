@@ -3,7 +3,7 @@ import json
 from django.core.serializers import serialize
 from django.views.generic.base import TemplateView
 
-from markers.models import MultilineStrings
+from markers.models import Lines, MultiPolygons, OtherRelations, PlacePoint, MultilineStrings
 
 
 from rest_framework import viewsets
@@ -15,7 +15,7 @@ from markers.serializers import MarkerSerializer
 class MarkerViewSet(viewsets.ReadOnlyModelViewSet):
     bbox_filter_field = "GEOMETRY"
     filter_backends = (filters.InBBoxFilter,)
-    queryset = MultilineStrings.objects.all()
+    queryset = MultiPolygons.objects.all()
     serializer_class = MarkerSerializer
 
 class MarkersMapView(TemplateView):

@@ -83,7 +83,7 @@ WSGI_APPLICATION = "mysite.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.contrib.gis.db.backends.spatialite", # "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "kerala.sqlite3",
+        "NAME": BASE_DIR / "paruvassery.sqlite3",
     }
 }
 

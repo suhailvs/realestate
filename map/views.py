@@ -41,3 +41,15 @@ class PropertyDetail(View):
         Property.objects.get(id= property).delete()
         return redirect('/')
 
+
+from django.contrib.gis import forms
+class PropertyForm(forms.ModelForm):
+    class Meta:
+        model = PropertyGIS
+        fields = ('id', 'name','GEOMETRY')
+        GEOMETRY = forms.PolygonField()
+
+
+def property_insert(request):
+    form = PropertyForm()
+    return render(request, 'map/add.html', {'form': form})
