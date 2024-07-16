@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-vr03nv^68$y%4re7*#p0u_q@+-33@(4!f8^o9t7urw1d)1=c%!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -87,7 +87,16 @@ DATABASES = {
     }
 }
 
-
+DATABASES = {
+  'default': {
+    'ENGINE': 'django.contrib.gis.db.backends.postgis',
+    'NAME': "realestate",
+    'USER': "postgres",
+    'PASSWORD': "root",
+    'HOST': "127.0.0.1",
+    'PORT': '5432',
+  } 
+}
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
